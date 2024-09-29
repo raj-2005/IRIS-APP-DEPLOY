@@ -12,7 +12,7 @@ import numpy as np
 # In[5]:
 
 
-model = pickle.load(open("iris_model.pkl","rb"))
+model = pickle.load(open("iris_model.pkl",'rb'))
 
 
 # In[6]:
