@@ -14,7 +14,7 @@ st.markdown(
     """
     <style>
     .reportview-container {
-        background: url("https://path_to_your_flower_image.jpg");
+        background: url("setosa.jpg");
         background-size: cover;
         background-position: center;
     }
@@ -51,7 +51,7 @@ if st.button("Predict"):
 # Add some visuals
 st.header("Flower Characteristics Visualization")
 # Load and display an example image of the Iris species
-image_path = "path_to_flower_image.jpg"  # Replace with your image path
+image_path = "iris_setosa.jpg"  # Replace with your image path
 st.image(image_path, caption="Example of Iris Flower", use_column_width=True)
 
 # Conclusion
