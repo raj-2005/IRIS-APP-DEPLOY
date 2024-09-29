@@ -1,50 +1,61 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[3]:
-
-
 import streamlit as st
 import pickle
-import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 
+# Set page config
+st.set_page_config(page_title="Iris Flower Prediction", page_icon="🌸", layout="wide")
 
-# In[5]:
+# Load the model
+model = pickle.load(open("iris_model.pkl", "rb"))
 
+# Background image
+st.markdown(
+    """
+    <style>
+    .reportview-container {
+        background: url("https://path_to_your_flower_image.jpg");
+        background-size: cover;
+        background-position: center;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
-model = pickle.load(open("iris_model.pkl",'rb'))
-
-
-# In[6]:
-
-
-# Title of the app
-st.title("Iris Flower Prediction App")
-
-
-# In[7]:
-
+# Title
+st.title("🌺 Iris Flower Species Prediction 🌺")
+st.markdown("Welcome to the Iris Flower Prediction App! 🌼")
 
 # Input features
-sepal_length = st.number_input("Sepal Length (cm)", min_value=0.0, max_value=10.0)
-sepal_width = st.number_input("Sepal Width (cm)", min_value=0.0, max_value=10.0)
-petal_length = st.number_input("Petal Length (cm)", min_value=0.0, max_value=10.0)
-petal_width = st.number_input("Petal Width (cm)", min_value=0.0, max_value=10.0)
+st.header("Input Features")
+sepal_length = st.slider("Sepal Length (cm)", 4.0, 8.0, 5.5)
+sepal_width = st.slider("Sepal Width (cm)", 2.0, 4.5, 3.0)
+petal_length = st.slider("Petal Length (cm)", 1.0, 7.0, 1.5)
+petal_width = st.slider("Petal Width (cm)", 0.1, 2.5, 0.2)
 
+# Create a DataFrame for the input features
+input_data = pd.DataFrame({
+    "sepal_length": [sepal_length],
+    "sepal_width": [sepal_width],
+    "petal_length": [petal_length],
+    "petal_width": [petal_width]
+})
 
-# In[8]:
-
-
-# When the user clicks the button, make a prediction
+# Make predictions
 if st.button("Predict"):
-    # Prepare the input for the model
-    input_data = np.array([[sepal_length, sepal_width, petal_length, petal_width]])
     prediction = model.predict(input_data)
-    # Display the prediction
-    st.write(f"The predicted class is: {prediction[0]}")
+    species = ["Setosa", "Versicolor", "Virginica"]
+    st.success(f"The predicted species is: **{species[prediction[0]]}** 🌷")
 
+# Add some visuals
+st.header("Flower Characteristics Visualization")
+# Load and display an example image of the Iris species
+image_path = "path_to_flower_image.jpg"  # Replace with your image path
+st.image(image_path, caption="Example of Iris Flower", use_column_width=True)
 
-# In[ ]:
+# Conclusion
+st.markdown("Thank you for using the Iris Flower Prediction App! 🌼🌺🌸")
 
 
 
